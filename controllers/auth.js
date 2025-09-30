@@ -1,4 +1,4 @@
-const { loginUser } = require("../models/auth");
+const { loginUser, singupUser } = require("../models/auth");
 
 const newError = require("../utils/newError");
 
@@ -37,4 +37,11 @@ exports.getSignup = (req, res, next) => {
   });
 };
 
-exports.postSignup = async (req, res, next) => {};
+// ! VALIDATION will be implemented during course section S18 - Understanding Validation
+exports.postSignup = async (req, res, next) => {
+  const { email, password, confirmPassword } = req.body;
+  const userExists = await singupUser({ email, password, confirmPassword });
+
+  if (userExists === true) return res.redirect("/signup");
+  return res.redirect("/");
+};
