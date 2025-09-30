@@ -19,6 +19,7 @@
     "nodemon": "^1.18.3"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "connect-mongodb-session": "^5.0.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.1",
