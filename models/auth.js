@@ -3,13 +3,22 @@ const bcrypt = require("bcryptjs");
 const User = require("./user");
 
 const newError = require("../utils/newError");
-const required = require("../utils/requireEnvVar");
+// const required = require("../utils/requireEnvVar");
 
-async function loginUser() {
+async function loginUser(userData) {
   try {
-    const userID = required("MONGODB_EXAMPLE_USER_ID");
-    const user = await User.findById(userID);
-    return user;
+    const { email, password } = userData;
+
+    const foundUser = await User.findOne({ email });
+    if (!foundUser) return false;
+
+    const doMatch = await bcrypt.compare(password, foundUser.password);
+    if (!doMatch) return false;
+
+    return foundUser;
+    // const userID = required("MONGODB_EXAMPLE_USER_ID");
+    // const user = await User.findById(userID);
+    // return user;
   } catch (error) {
     throw newError("Failed to login user", error);
   }
@@ -21,7 +30,7 @@ async function singupUser(userData) {
     const { email, password, confirmPassword } = userData;
     const userExists = await User.findOne({ email });
 
-    // return will be handled in controller, calling res.redirect
+    // ^ return will be handled in controller, calling res.redirect
     if (userExists) return true;
 
     const hashedPwd = await bcrypt.hash(password, 12);

@@ -12,14 +12,18 @@ exports.getLogin = (req, res, next) => {
 
 // ! real user authentication will be implemented during the next course
 exports.postLogin = async (req, res, next) => {
-  const user = await loginUser(); // * logs in using set userID credentials
+  const { email, password } = req.body;
+  const user = await loginUser({ email, password });
 
-  req.session.user = user;
-  req.session.loggedIn = true;
-  req.session.save((err) => {
-    if (err) throw newError("Failed to log in", err);
-    res.redirect("/");
-  });
+  if (!user) return res.redirect("/login");
+  else {
+    req.session.user = user;
+    req.session.loggedIn = true;
+    req.session.save((err) => {
+      if (err) throw newError("Failed to log in", err);
+      res.redirect("/");
+    });
+  }
 };
 
 exports.postLogout = async (req, res, next) => {
