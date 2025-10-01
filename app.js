@@ -3,6 +3,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
+const csrf = require("csurf");
 require("dotenv").config();
 
 const User = require("./models/user");
@@ -18,6 +19,7 @@ const store = new MongoDBStore({
   uri: MongoDB_URI,
   collection: "sessions",
 });
+const csrfProtection = csrf();
 
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -41,6 +43,7 @@ app.use(
     // cookie: {}
   })
 );
+app.use(csrfProtection);
 
 // ! user authentication will be implemented in the future
 app.use(
@@ -53,6 +56,12 @@ app.use(
     next();
   })
 );
+
+app.use((req, res, next) => {
+  res.locals.loggedIn = req.session.loggedIn;
+  res.locals.csrfToken = req.csrfToken();
+  next();
+});
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
