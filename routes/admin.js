@@ -1,10 +1,8 @@
 const express = require("express");
-
-const adminController = require("../controllers/admin");
-
 const router = express.Router();
 
 const isAuthed = require("../middleware/isAuthed");
+const adminController = require("../controllers/admin");
 const catchErrAsync = require("../utils/catchErrAsync");
 
 // /admin/products => GET

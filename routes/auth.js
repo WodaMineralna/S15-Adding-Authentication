@@ -1,9 +1,7 @@
 const express = require("express");
-
-const authController = require("../controllers/auth");
-
 const router = express.Router();
 
+const authController = require("../controllers/auth");
 const catchErrAsync = require("../utils/catchErrAsync");
 
 router.get("/login", authController.getLogin);

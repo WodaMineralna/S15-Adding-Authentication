@@ -33,10 +33,6 @@ function getMongoDB_URI() {
   return uri;
 }
 
-// !
-// TODO remove it and other code connected to the 'default' user / modify existing products' "userId" so it looks good on demo app / when cloned
-// ? wiesz co zrobic xd po prostu aby w docs'ach bylo jasno napisane na co sie powinien uzytkownik zalogowac aby zobaczyc 'user-created' admin produkty    -    zmodyfikuj do tego docsy albo kod
-
 // ensuring user with set ID exists
 async function ensureUserExists() {
   const userID = required("MONGODB_EXAMPLE_USER_ID");

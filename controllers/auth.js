@@ -9,7 +9,6 @@ exports.getLogin = (req, res, next) => {
   });
 };
 
-// ! real user authentication will be implemented during the next course
 exports.postLogin = async (req, res, next) => {
   const { email, password } = req.body;
   const user = await loginUser({ email, password });
