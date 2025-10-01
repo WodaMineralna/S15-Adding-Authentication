@@ -6,7 +6,6 @@ exports.getProductsPage = async (req, res, next) => {
     products,
     pageTitle: "All Products",
     path: "/products",
-    loggedIn: req.session.loggedIn,
   });
 };
 
@@ -18,7 +17,6 @@ exports.getProduct = async (req, res, next) => {
     product: filteredProduct,
     pageTitle: `${filteredProduct.title} Details`,
     path: "/products",
-    loggedIn: req.session.loggedIn,
   });
 };
 
@@ -28,7 +26,6 @@ exports.getIndex = async (req, res, next) => {
     products,
     pageTitle: "Shop",
     path: "/",
-    loggedIn: req.session.loggedIn,
   });
 };
 
@@ -39,7 +36,6 @@ exports.getCart = async (req, res, next) => {
     products: cartItems,
     path: "/cart",
     pageTitle: "Your Cart",
-    loggedIn: req.session.loggedIn,
   });
 };
 
@@ -64,7 +60,6 @@ exports.getOrders = async (req, res, next) => {
     orders,
     path: "/orders",
     pageTitle: "Your Orders",
-    loggedIn: req.session.loggedIn,
   });
 };
 

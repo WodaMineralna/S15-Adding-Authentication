@@ -3,7 +3,6 @@ exports.get404 = (req, res, next) => {
     errorData: { message: "Error (404): Page not found" },
     pageTitle: "An error occured!",
     path: "/error",
-    loggedIn: req.session.loggedIn
   });
 };
 
@@ -20,6 +19,5 @@ exports.getErrorPage = (error, req, res, next) => {
     },
     pageTitle: "An error occured!",
     path: "/error",
-    loggedIn: req.session.loggedIn,
   });
 };

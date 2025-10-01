@@ -6,7 +6,6 @@ exports.getProductsPage = async (req, res, next) => {
     products,
     pageTitle: "Admin Products",
     path: "/admin/products",
-    loggedIn: req.session.loggedIn,
   });
 };
 
@@ -22,7 +21,6 @@ exports.getEditProduct = async (req, res, next) => {
     pageTitle: "Edit Product",
     path: "/admin/edit-product",
     editing: editMode,
-    loggedIn: req.session.loggedIn,
   });
 };
 
@@ -47,7 +45,6 @@ exports.getAddProduct = (req, res, next) => {
     pageTitle: "Add Product",
     path: "/admin/add-product",
     editing: false,
-    loggedIn: req.session.loggedIn,
   });
 };
 
