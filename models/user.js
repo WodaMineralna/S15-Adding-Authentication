@@ -127,7 +127,7 @@ userSchema.methods.addOrder = async function () {
     });
     const order = new Order({
       user: {
-        name: this.name,
+        email: this.email,
         userId: this._id,
       },
       products,
