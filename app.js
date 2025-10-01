@@ -6,11 +6,12 @@ const MongoDBStore = require("connect-mongodb-session")(session);
 const csrf = require("csurf");
 require("dotenv").config();
 
-const User = require("./models/user");
-
 const errorController = require("./controllers/error");
 
 const { mongoConnect, getMongoDB_URI } = require("./src/db/database");
+
+const attachUser = require("./middleware/attachUser");
+const attachLocals = require("./middleware/attachLocals");
 
 const MongoDB_URI = getMongoDB_URI();
 
@@ -45,23 +46,8 @@ app.use(
 );
 app.use(csrfProtection);
 
-// ! user authentication will be implemented in the future
-app.use(
-  catchErrAsync(async (req, res, next) => {
-    if (!req.session.user) return next();
-
-    let user = await User.findById(req.session.user._id);
-
-    req.user = user;
-    next();
-  })
-);
-
-app.use((req, res, next) => {
-  res.locals.loggedIn = req.session.loggedIn;
-  res.locals.csrfToken = req.csrfToken();
-  next();
-});
+app.use(catchErrAsync(attachUser)); // * attaches user found by User.findById(req.session.user._id) to req.user
+app.use(attachLocals);
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
