@@ -6,6 +6,7 @@ exports.getLogin = (req, res, next) => {
   res.render("auth/login", {
     path: "/login",
     pageTitle: "Login",
+    errorMessage: req.flash("error"),
   });
 };
 
@@ -13,8 +14,10 @@ exports.postLogin = async (req, res, next) => {
   const { email, password } = req.body;
   const user = await loginUser({ email, password });
 
-  if (!user) return res.redirect("/login");
-  else {
+  if (!user) {
+    req.flash("error", "Invalid email or password.");
+    return res.redirect("/login");
+  } else {
     req.session.user = user;
     req.session.loggedIn = true;
     req.session.save((err) => {
@@ -35,6 +38,7 @@ exports.getSignup = (req, res, next) => {
   res.render("auth/signup", {
     path: "/signup",
     pageTitle: "Signup",
+    errorMessage: req.flash("error"),
   });
 };
 
@@ -43,6 +47,12 @@ exports.postSignup = async (req, res, next) => {
   const { email, password, confirmPassword } = req.body;
   const userExists = await singupUser({ email, password, confirmPassword });
 
-  if (userExists === true) return res.redirect("/signup");
+  if (userExists === true) {
+    req.flash(
+      "error",
+      "Email already in use. Please provide different email adress."
+    );
+    return res.redirect("/signup");
+  }
   return res.redirect("/");
 };
