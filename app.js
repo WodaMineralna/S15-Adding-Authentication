@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 
 const sessionMiddleware = require("./config/session");
 const csrfProtection = require("./config/csrf");
+const flash = require("./config/connect-flash");
 const routes = require("./routes/index");
 
 const attachUser = require("./middleware/attachUser");
@@ -20,6 +21,7 @@ app.use(cookieParser());
 
 app.use(sessionMiddleware());
 app.use(csrfProtection);
+app.use(flash);
 
 app.use(attachUser); // ^ attaches user found by User.findById(req.session.user._id) to req.user
 app.use(attachLocals); // ^ automatically attaches res.locals.loggedIn && .csrfToken to currently rendered views
