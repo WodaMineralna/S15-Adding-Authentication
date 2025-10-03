@@ -185,10 +185,10 @@ Expected output:
   <summary>My note about csurf deprecation</summary>
   
 <br>
-<b>I know csurf has been marked as deprecated.</b>
+<b>I know that <code>csurf</code> has been marked as deprecated.</b>
 <br><br>
-The purpose of the course lecture is to explain the general principle of CSRF attacks; the course has been created a few years ago using csurf, before the development team deprecated this package.
+This course lecture was created a few years ago using <code>csurf</code>, before the development team deprecated the package. Its purpose is to explain the general principle of CSRF attacks, with <code>csurf</code> being used as the demonstration tool.
 <br><br>
-Since the attacks are only simulated locally in our code and this is a course repository after all <i>(though I am putting my heart to every single one of them)</i>, I will be using csurf until I decide not to.
+Since the attacks are only simulated locally in our code, and this is a course repository after all <i>(though I put my heart into every single one of them)</i>, I will continue using <code>csurf</code> until I decide otherwise.
 
 </details>
